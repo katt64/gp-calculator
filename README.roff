@@ -1,0 +1,370 @@
+.he ''%''
+.fo ''katt64/gp-calculator''
+.de CB
+.(l
+.ft C
+..
+.de CS
+.)l
+.ft R
+..
+.tp
+.sp |4i
+.ce 3
+.ps 20
+katt64/gp-calculator
+.ps
+.sp
+.ps 14
+A calculator like the one made in Troff, but it's made in PARI/GP instead
+.ps
+.sp
+.ps 12
+Stephanie Björk
+.ps
+.+c
+.(x
+Text in the meme
+.)x
+.sh 1 "Text in the meme"
+.lp
+Glad you liked the meme!
+Here is how the captions were done:
+.CB
+\&.sp |2i
+\&.nh \e" doggo of typesetting disapproves of ur hyphenetion
+\&.ps 16
+\&.vs 19.2p
+\&.ps +4
+\eS'30'YO DAWG\eS'0'
+\&.ps
+i heard u like \eH'30'CALCULATORS\eH'0'
+
+So \es+(10i\es0 programmed \es+(10a\es0 \es-4infix expression parser\es0 inside ur
+\es-4infix expression calculator\es0 so \es+(10u\es0 can
+\eH'20'\eS'20'CALCULATE\eH'0'\eS'0' while u \eH'30'\eS'30'CALCULATE\eH'0'\eS'0'
+.CE
+.(x
+What the fuck is this?
+.)x
+.sh 1 "What the fuck is this?"
+.pp
+.i gp-calculator\*#
+.(d
+\*#
+.ul
+gp-calculator
+on Github:
+https://github.com/katt64/gp-calculator
+.)d
+is yet another calculator program made in PARI/GP\*#.
+.(d
+\*#
+.ul
+PARI/GP Development Headquarters:
+https://pari.math.u-bordeaux.fr/
+.)d
+More precisely, it is a reverse polish notation and infix notation parser in one
+package that work together to serve as an operable calculator.
+It uses the same algorithms and has the same \*(lqesoteric\*(rq goals as the
+implementation in Troff\*#
+.(d
+\*#
+.ul
+troff-calculator
+on Github:
+https://github.com/katt64/troff-calculator
+.)d
+Thus, it is the same calculator program as the one made in Troff, but it's made
+in GP instead. :p
+.pp
+PARI/GP, in and of itself, is already a calculator capable of parsing infix
+expressions for ordinary numerical computations and symbolic manipulation.
+It is an extremely versatile and programmable calculator which comes with its
+own Turing-complete language.
+The language is so powerful that one can use it to program automated scripts for
+complex number-theoretic computations and even make a functioning calculator
+within itself!
+.pp
+So why the fuck not make a calculator in PARI/GP, so you can
+.i calculate
+while you
+.bi calculate\c
+.r .
+xD
+.(x
+Basic usage
+.)x
+.sh 1 "Basic usage"
+.pp
+To use this calculator, you need PARI/GP.
+More specifically, you need the GP (Great Programmable) calculator from the
+PARI/GP package.
+Once you've installed that, familiarize yourself with the GP calculator by
+reading the tutorial or skimming through the User's Manual using a DVI viewer.
+Refer to your operating supervisor's and PARI/GP's manuals on how to obtain and
+setup a working setup of PARI/GP on your computer.
+.pp
+To really use the
+.i gp-calculator
+(not to be confused with GP itself or \*(lqGP Calculator\*(rq (note the
+spaces)), you must first clone this repository onto your disk, source the GP
+script (\fC*.gp\fP) with the \fC\er\fP command, and use the
+\fCparseInfix([tokens...])\fP (requires \fCinfix.gp\fP) or
+\fCparseRPN([tokens...])\fP (requires \fCrpn.gp\fP) functions for the infix or
+reverse polish expression parsers respectively.
+.bp
+.sh 2 "Instructions"
+.de NC
+.in 9n
+.nf
+.ft C
+..
+.de NE
+.ft
+.fi
+.in
+..
+.pp
+To expand the synopsis above and give more examples, here are the instructions.
+No skills in the GP calculator are assumed from the user at this point.
+.np
+Clone this repository into its own directory:
+
+.NC
+git clone https://github.com/katt64/gp-calculator.git
+.NE
+
+This should put the latest copy of this repository, including every piece of
+code and documentation into a local directory called ``gp-calculator`` on
+your computer.
+Change your current working directory to that directory using the ``cd``
+command.
+
+.np
+Make sure that \fCgp\fP is in your shell's \fC$PATH\fP.
+Then, run \fCgp\fP on your shell to invoke the GP calculator.
+You should be greeted with a message and a prompt should appear as \fC?\fP.
+
+.np
+Tell GP to \fIread\fP (source) the relevant GP scripts using the \fC\er\fP
+command.
+This command will read and load all function and variable definitions into this
+instance of GP.
+
+For example, to parse infix expressions, you will need to source the infix
+processor.
+Source this processor by issuing \fC\er infix\fP at GP's prompt and press
+.bx ENTER .
+There is usually no need to concatenate a \fC.gp\fP extension to any file,
+although you can do it if you want to.
+Sourcing \fCinfix(.gp)\fP will also source its dependency, \fCrpn(.gp)\fP.
+
+If you are the more adventurous type of us and you want to parse
+\*(lqlow-level\*(rq reverse polish expressions, you will need to source the
+reverse polish processor.
+Source this processor by issuing \fC\er rpn\fP at GP's prompt and press ENTER.
+This script does not have any external dependencies apart from GP itself.
+
+.np
+Finally, parse some input expressions!
+Depending on the notations in which they are set: infix or postfix; you will
+need different parser functions.
+The rule-of-thumb is to use \fCparseInfix([tokens...])\fP for infix expressions
+and \fCparseRPN([tokens...])\fP for postfix expressions.
+Use them correctly as their arrangements of \fCtokens...\fP are not compatible
+with each other.
+
+For example, if you want to parse (6 \(pl 12) \(di 3 \(mu 5 as infix, simply
+separate the individual tokens (parentheses, supported operators, and
+operands), and invoke the \fCparseInfix\fP function like so:
+
+.NC
+parseInfix(["(", 6, "+", 12, ")", "/", 3, "*", 5])
+.NE
+
+You must enclose the list of tokens with matching square brackets, \fC[\fP and
+\fC]\fP to create a list environment within which you can type your tokens.
+You must \fInot\fP finish the functional call with a semicolon (\fC;\fP) as that
+will suppress output to stdout.
+You must enclose operator tokens with double quotes to make them a string,
+and you must \fInot\fP use single quotes as those aren't the same in GP.
+You must \fInot\fP explicitly include spaces as tokens; tokens include
+parentheses, supported operators, and operands, not whitespaces or anything
+else.
+
+As another example, if you want to parse 6 12 \(pl 3 \(di 5 \(mu as postfix,
+simply separate the individual tokens (supported operators and operands)
+and invoke the \fCparseRPN\fP function like so:
+
+.NC
+parseRPN([6, 12, "+", 3, "/", 5, "*"])
+.NE
+
+Same syntax rules apply.
+You still must \fCnot\fP explicitly include spaces as tokens.
+
+Once you've finished, make sure that all syntax is correct, parentheses and
+other brackets are paired up, and that you did not put a semicolon at the
+end of the input line by accident.
+Then, press
+.bx ENTER
+to run.
+
+The functions should echo evaluated answers onto the terminal like so:
+
+.NC
+%1 = 30
+.NE
+
+This is the result of the same expression used in the examples above, (6 \(pl
+12) \(di 3 \(mu 5.
+If you are new to GP, you can safely ignore the \fC%\ed+ =\fP part.
+It is merely GP's way to give numbers to input lines in case you want to
+refer back to them later on.
+
+Error messages within the script should be reported, if any.
+Such messages also appear on the terminal.
+
+To quit GP, press
+.bx CTRL +
+.bx D
+If you get unlucky and end up at a \fCbreak>\fP prompt, keep pressing
+.bx CTRL +
+.bx D
+until you get back to your shell.
+.(x
+Inner-workings
+.)x
+.sh 1 "Inner-workings"
+.pp
+Knowing the inner-workings of the scripts can really help you tweak the scripts
+as apropos to your use case.
+With that in mind, you may also eliminate scripts or parts thereof that you are
+certain won't be of use to you.
+If you are up to it, you can also use your understanding to maintain the scripts
+in this repository if you see they need maintainance.
+Generally, though, knowing the inner-workings is really useful, so that you get
+a chance to understand the subtleties that go behind parsing expressions a bit
+more.
+.pp
+Certainly, since this program is written in GP's programming language, you will
+need to understand it.
+The tutorial gives you a pretty good foundation; it can be invoked by typing
+\fC?? tutorial\fP at GP's prompt.
+.pp
+This program is open-source, which means you have all the right to do whatever
+you want to the source code at your own risk.
+.sh 2 "Supported operators"
+.pp
+The following list shows all operators supported by the calculator, ordered as a
+function of increasing hyperoperations.
+In each pair of parentheses is the ASCII character that represents the operator
+and that must be typed as a token to the parser functions.
+.bu
+Addition (\fC+\fP)
+.bu
+Substraction (\fC-\fP)
+.bu
+Multiplication (\fC*\fP)
+.bu
+Division (\fC/\fP)
+.bu
+Modulo (\fC%\fP)
+.bu
+Exponentiation (\fC^\fP)
+.pp
+For square roots, cube roots, and other radicals, use the exponentation operator
+with a fractional exponent: \fC1/2\fP for square roots, \fC1/3\fP for cube
+roots, \fC1/12\fP for twelveth roots.
+
+The order of operations is not a primary concern for the reverse polish notation
+processor, but it is for the infix notation processor.
+This should be obvious enough.
+The order of operations is simply
+.bi PEMDAS
+or
+.bi BODMAS .
+Exponentiation is the \fBonly\fP operation whose associativity is
+right-associative; the rest of the operations are left-associative.
+
+Parentheses of the form \fC( )\fP are supported by the infix notation processor,
+but not the reverse polish notation processor.
+There is simply no use for them in reverse polish notation.
+
+To add or remove operators from the calculator, the infix and reverse polish
+notation processors must be reprogrammed.
+Their new list of supported operators must be kept in sync to avoid unpleasant
+surprises.
+.sh 2 "Supported operands"
+Operands in the form of integers (\fCt_INT\fP), reals (\fCt_REAL\fP), and
+fractions (\fCt_FRAC\fP) are supported.
+Consequently, evaluation results may be in the form of any of those 3 depending
+on how the evaluation was carried out and what the operands were.
+
+GP, the language behind \fIgp-calculator\fP, does support symbolic manipulation,
+which means that parsing \fC["(", "a", "+", "b", ")", "*", "3"]\fP and \fC["4",
+"a", "*", "9", "a", *, "+"]\fP is \fBtechnically\fP possible and results in
+\fC3*a + 3*b\fP and \fC13*a\fP respectively, but this support is not implemented
+within \fCgp-calculator\fP.
+To support symbolic manipulation, you must hardcode this support by allowing
+polynomial operands (\fCt_POL\fP) in both the infix and postfix processors.
+However, symbolic manipulation is not supported by default, as answers always
+arrive in infix notation, there is potential room for abuse, and the author
+doesn't like algebra and thinks support for polynomials is useless.
+.sh 2 "Relevant algorithms"
+.pp
+The program uses the \fIShunting-yard algorithm\fP to convert tokens from an
+infix expression to tokens compatible with the reverse polish notation.
+The implementation of this algorithm is located in \fCinfix.gp\fP.
+.br
+See
+.u https://en.wikipedia.org/wiki/Shunting-yard_algorithm
+for a description and the pseudocode.
+.pp
+It uses the generic left-to-right postfix-processing algorithm to parse postfix
+expressions read from left to right, and evaluate tokens in the stack
+immediately whenever possible.
+The implementation of this algorithm is located in \fCrpn.gp\fP.
+.br
+See
+.u https://en.wikipedia.org/wiki/Reverse_Polish_notation
+for a description and the pseudocode.
+.(x
+License
+.)x
+.sh 1 "License"
+.pp
+The entirety of this project is licensed under
+.bi WTFPL .
+.(x
+Author
+.)x
+.sh 1 "Author"
+.ce
+Stephanie Björk (Katt) <katt16777216@gmail.com>
+.pp
+You are welcome to ask any questions, make any logical suggestions (no hurtful
+comments please), and say hi to me at my email.
+Keep in mind that if you ask questions about programming or computer science, I
+might not be able to answer it because I'm not an expert at that. :p
+.pp
+If you need to reach me quickly, you may add me on my Snapchat: \fCsuttiwit\fP.
+Please do
+.bi not
+send nudes or selfies, otherwise you will be blocked permanently.
+.(x
+Afterword
+.)x
+.sh 1 "Afterword"
+.pp
+Please don't be like me, wasting your time abusing programs and coercing them
+into doing weird shit.
+Have a nice day.
+.++ B
+.+c "Bibliography"
+.pd
+.++ P
+.+c "Table of contents"
+.uh "Sections"
+.xp

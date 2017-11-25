@@ -1,0 +1,36 @@
+estack = [];
+
+epush(x) = {
+    estack = vector(#estack + 1, i, if(i <= #estack, estack[i], x));
+    return(#estack);
+};
+
+epop() = {
+    local(val = estack[#estack]);
+    estack = vector(#estack - 1, i, estack[i]);
+    return(val);
+};
+
+registerRPNToken(t) = {
+    local(o1, o2);
+    
+    if(type(t) == "t_STR",
+        if(t == "+", o2 = epop(); o1 = epop(); epush(o1 + o2),
+        if(t == "-", o2 = epop(); o1 = epop(); epush(o1 - o2),
+        if(t == "*", o2 = epop(); o1 = epop(); epush(o1 * o2),
+        if(t == "/", o2 = epop(); o1 = epop(); epush(o1 / o2),
+        if(t == "%", o2 = epop(); o1 = epop(); epush(o1 % o2),
+        if(t == "^", o2 = epop(); o1 = epop(); epush(o1 ^ o2)
+        )))))),
+    if(type(t) == "t_INT" || type(t) == "t_REAL" || type(t) == "t_FRAC",
+        epush(t))
+    );
+};
+
+parseRPN(s) = {
+    estack = [];
+    for(i = 1, #s, registerRPNToken(s[i]));
+
+    if(#estack > 1, error("Malformed postfix expression."));
+    return(estack[1]);
+};
