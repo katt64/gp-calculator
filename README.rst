@@ -3,7 +3,7 @@ gp-calculator
 ==============
 
 ---------------------------------------------------------------------------
-An calculator like the one made in Troff, but it's made in PARI/GP instead
+A calculator like the one made in Troff, but it's made in PARI/GP instead
 ---------------------------------------------------------------------------
 
 .. image:: doc/meme.jpg
