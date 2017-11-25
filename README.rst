@@ -10,7 +10,7 @@ A calculator like the one made in Troff, but it's made in PARI/GP instead
      :alt: The great meme behind this calculator.
 
 Text in the meme
-----------------
+================
 Glad you liked the meme!
 Here is how the captions were done:
 
